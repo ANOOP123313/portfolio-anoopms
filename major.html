@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anoop Ms — UI/UX Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        body { font-family: 'Inter', sans-serif; overflow-x: hidden; width: 100%; }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #525252; border-radius: 10px; }
+
+        /* ===== KEYFRAMES ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+        @keyframes morphBlob {
+            0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            50% { border-radius: 50% 60% 30% 60% / 30% 60% 70% 40%; }
+            75% { border-radius: 60% 40% 60% 30% / 60% 40% 30% 60%; }
+        }
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes particle-float {
+            0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.6; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) translateX(30px) scale(0); opacity: 0; }
+        }
+        @keyframes ripple {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes grain {
+            0%, 100% { transform: translate(0,0); }
+            10% { transform: translate(-5%,-10%); }
+            30% { transform: translate(3%,-15%); }
+            50% { transform: translate(12%,9%); }
+            70% { transform: translate(9%,4%); }
+            90% { transform: translate(-1%,7%); }
+        }
+        @keyframes scrollDot {
+            0% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(10px); }
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        .animate-on-scroll.from-left { transform: translateX(-60px); }
+        .animate-on-scroll.from-left.visible { transform: translateX(0); }
+        .animate-on-scroll.from-right { transform: translateX(60px); }
+        .animate-on-scroll.from-right.visible { transform: translateX(0); }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
+
+        /* ===== HERO ANIMATIONS ===== */
+        .hero-badge { animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; opacity: 0; }
+        .hero-title-line { overflow: hidden; }
+        .hero-title-line span {
+            display: inline-block;
+            animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        .hero-title-line:nth-child(1) span { animation-delay: 0.4s; }
+        .hero-title-line:nth-child(2) span { animation-delay: 0.55s; }
+        .hero-title-line:nth-child(3) span { animation-delay: 0.7s; }
+        .hero-desc { animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.85s forwards; opacity: 0; }
+        .hero-buttons { animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards; opacity: 0; }
+        .hero-stats { animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1.15s forwards; opacity: 0; }
+        .hero-image-wrapper { animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; opacity: 0; }
+
+        /* ===== MORPH BLOB ===== */
+        .morph-blob { animation: morphBlob 8s ease-in-out infinite; }
+
+        /* ===== SHIMMER TEXT ===== */
+        .shimmer-text {
+            background: linear-gradient(90deg, currentColor 40%, #6366f1 50%, currentColor 60%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+
+        /* ===== PROJECT CARD ===== */
+        .project-card { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-card:hover { transform: translateY(-8px); }
+        .project-card .project-img { transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-card:hover .project-img { transform: scale(1.06); }
+        .project-card .project-overlay { opacity: 0; transition: opacity 0.5s ease; }
+        .project-card:hover .project-overlay { opacity: 1; }
+        .project-card .project-arrow { transition: all 0.3s ease; }
+        .project-card:hover .project-arrow { transform: translateX(6px); }
+        .project-card .project-number { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-card:hover .project-number { transform: scale(1.1); color: #6366f1; }
+
+        /* ===== SERVICE CARD ===== */
+        .service-card { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .service-card:hover { transform: translateY(-6px); }
+        .service-card .service-icon { transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .service-card:hover .service-icon { transform: scale(1.15) rotate(5deg); }
+        .service-card .service-line { width: 0; transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .service-card:hover .service-line { width: 40px; }
+
+        /* ===== NAV ===== */
+        .nav-link { position: relative; }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; border-radius: 1px;
+            background: #6366f1; transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* ===== THEME TOGGLE ===== */
+        .theme-toggle { transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .theme-toggle:hover { transform: rotate(180deg) scale(1.1); }
+
+        /* ===== CURSOR GLOW ===== */
+        .glow-cursor {
+            pointer-events: none; position: fixed;
+            width: 350px; height: 350px; border-radius: 50%;
+            filter: blur(100px); opacity: 0.1; z-index: 0;
+            will-change: transform;
+        }
+
+        /* ===== MAGNETIC BUTTON ===== */
+        .magnetic-btn { transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .magnetic-btn:active { transform: scale(0.96); }
+
+        /* ===== TIMELINE ===== */
+        .timeline-dot { transition: all 0.4s ease; }
+        .timeline-item:hover .timeline-dot { transform: scale(1.5); box-shadow: 0 0 20px rgba(99,102,241,0.5); }
+
+        /* ===== CONTACT ===== */
+        .contact-link { transition: all 0.3s ease; }
+        .contact-link:hover { letter-spacing: 0.03em; transform: translateX(4px); }
+
+        /* ===== MOBILE MENU ===== */
+        .mobile-menu { transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .mobile-menu.open { transform: translateX(0); }
+
+        /* ===== SKILL BAR ===== */
+        .skill-bar-fill { position: relative; overflow: hidden; }
+        .skill-bar-fill::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s linear infinite; background-size: 200% auto;
+        }
+
+        /* ===== MARQUEE ===== */
+        .marquee-container { overflow: hidden; width: 100%; }
+        .marquee-track { display: flex; width: max-content; animation: marquee 25s linear infinite; }
+        .marquee-track:hover { animation-play-state: paused; }
+
+        /* ===== RIPPLE ===== */
+        .ripple-btn { position: relative; overflow: hidden; }
+        .ripple-btn .ripple-effect {
+            position: absolute; border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            animation: ripple 0.6s ease-out forwards;
+            pointer-events: none;
+        }
+
+        /* ===== TOAST ===== */
+        .toast { animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .toast.hide { animation: fadeOutDown 0.4s ease forwards; }
+        @keyframes fadeOutDown {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(20px); }
+        }
+
+        /* ===== GRAIN — desktop only ===== */
+        @media (min-width: 769px) {
+            .grain-overlay::before {
+                content: ''; position: fixed; top: -50%; left: -50%;
+                width: 200%; height: 200%;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+                animation: grain 8s steps(10) infinite;
+                pointer-events: none; z-index: 1000;
+            }
+        }
+
+        /* ===== HERO IMAGE CONTAINER — prevent overflow ===== */
+        .hero-image-container { position: relative; width: 100%; max-width: 384px; margin: 0 auto; }
+        @media (min-width: 1024px) { .hero-image-container { max-width: none; } }
+
+        .hero-floating-el { position: absolute; z-index: 10; }
+
+        /* ===== Particle container ===== */
+        #particles { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .particle {
+            position: absolute; border-radius: 50%;
+            animation: particle-float linear infinite;
+        }
+
+        /* ===== Responsive fixes ===== */
+        @media (max-width: 768px) {
+            .glow-cursor { display: none !important; }
+            .hero-floating-el { display: none; }
+            .hero-title-line span { animation-delay: calc(var(--delay, 0) * 0.6) !important; }
+            .project-card:hover { transform: translateY(-4px); }
+            .service-card:hover { transform: translateY(-3px); }
+        }
+
+        @media (max-width: 480px) {
+            .hero-image-container { max-width: 280px; }
+        }
+    </style>
+</head>
+<body class="dark:bg-[#050505] bg-white dark:text-white text-neutral-900 transition-colors duration-500 grain-overlay">
+
+    <!-- Cursor Glow — desktop only -->
+    <div id="cursorGlow" class="glow-cursor dark:bg-indigo-500 bg-indigo-400 hidden md:block"></div>
+
+    <!-- Floating Particles — desktop only -->
+    <div id="particles" class="hidden md:block"></div>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="fixed top-0 left-0 right-0 z-50 dark:bg-[#050505]/70 bg-white/70 backdrop-blur-2xl border-b dark:border-white/5 border-neutral-200/80 transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-lg font-bold tracking-tighter group shrink-0">
+                ANOOP<span class="dark:text-indigo-400 text-indigo-600 group-hover:dark:text-emerald-400 group-hover:text-emerald-600 transition-colors duration-300">.</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#works" class="nav-link text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">Works</a>
+                <a href="#services" class="nav-link text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">Services</a>
+                <a href="#experience" class="nav-link text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">Experience</a>
+                <a href="#about" class="nav-link text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">About</a>
+                <a href="#contact" class="nav-link text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">Contact</a>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button id="themeToggle" class="theme-toggle w-9 h-9 rounded-full dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-colors shrink-0" aria-label="Toggle theme">
+                    <span class="dark:hidden"><span class="iconify" data-icon="lucide:moon" data-width="16"></span></span>
+                    <span class="hidden dark:inline"><span class="iconify" data-icon="lucide:sun" data-width="16"></span></span>
+                </button>
+
+                <a href="#contact" class="hidden md:flex ripple-btn magnetic-btn text-sm font-medium dark:bg-white bg-neutral-900 dark:text-black text-white px-5 py-2 rounded-full dark:hover:bg-neutral-200 hover:bg-neutral-700 transition-colors shrink-0">
+                    Let's Talk
+                </a>
+
+                <button id="mobileMenuBtn" class="md:hidden w-9 h-9 rounded-full dark:bg-white/5 bg-neutral-100 flex items-center justify-center shrink-0">
+                    <span class="iconify" data-icon="lucide:menu" data-width="18"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu fixed inset-0 z-[60] dark:bg-[#050505] bg-white flex flex-col items-center justify-center gap-8">
+        <button id="mobileMenuClose" class="absolute top-4 right-4 sm:right-6 w-10 h-10 rounded-full dark:bg-white/5 bg-neutral-100 flex items-center justify-center">
+            <span class="iconify" data-icon="lucide:x" data-width="20"></span>
+        </button>
+        <a href="#works" class="mobile-nav-link text-3xl sm:text-4xl font-bold dark:text-white text-neutral-900 hover:text-indigo-500 transition-colors">Works</a>
+        <a href="#services" class="mobile-nav-link text-3xl sm:text-4xl font-bold dark:text-white text-neutral-900 hover:text-indigo-500 transition-colors">Services</a>
+        <a href="#experience" class="mobile-nav-link text-3xl sm:text-4xl font-bold dark:text-white text-neutral-900 hover:text-indigo-500 transition-colors">Experience</a>
+        <a href="#about" class="mobile-nav-link text-3xl sm:text-4xl font-bold dark:text-white text-neutral-900 hover:text-indigo-500 transition-colors">About</a>
+        <a href="#contact" class="mobile-nav-link text-3xl sm:text-4xl font-bold dark:text-white text-neutral-900 hover:text-indigo-500 transition-colors">Contact</a>
+    </div>
+
+    <!-- ==================== HERO ==================== -->
+    <section class="relative min-h-screen flex items-center pt-16 overflow-hidden">
+        <div class="absolute top-1/4 -left-20 w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] dark:bg-indigo-600/15 bg-indigo-500/10 rounded-full blur-[140px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 -right-20 w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] dark:bg-purple-600/10 bg-purple-500/5 rounded-full blur-[120px] animate-pulse" style="animation-delay: 3s;"></div>
+
+        <!-- Spinning decorations — hidden on mobile -->
+        <div class="hidden lg:block absolute top-20 right-10 w-40 h-40 border dark:border-white/5 border-neutral-200 rounded-full opacity-30" style="animation: spin-slow 20s linear infinite;"></div>
+        <div class="hidden lg:block absolute bottom-32 left-10 w-24 h-24 border dark:border-indigo-500/10 border-indigo-200 rounded-full opacity-30" style="animation: spin-slow 15s linear infinite reverse;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 w-full py-16 sm:py-20">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-center lg:text-left">
+                    <div class="hero-badge inline-flex items-center gap-2 px-4 py-2 rounded-full dark:bg-white/5 bg-neutral-100 border dark:border-white/10 border-neutral-200 mb-6 sm:mb-8">
+                        <span class="w-2 h-2 bg-emerald-500 rounded-full shrink-0" style="animation: pulse-dot 1.5s ease-in-out infinite;"></span>
+                        <span class="text-xs font-medium dark:text-neutral-400 text-neutral-600">Available for freelance work</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[0.95] mb-4 sm:mb-6">
+                        <div class="hero-title-line"><span>ANOOP</span></div>
+                        <div class="hero-title-line"><span class="shimmer-text">MS</span></div>
+                        <div class="hero-title-line"><span class="dark:text-neutral-600 text-neutral-400 text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-semibold tracking-tight">UI/UX DESIGNER</span></div>
+                    </h1>
+
+                    <p class="hero-desc text-sm sm:text-base md:text-lg dark:text-neutral-400 text-neutral-600 max-w-lg mx-auto lg:mx-0 mb-6 sm:mb-8 leading-relaxed">
+                        Crafting pixel-perfect digital experiences with a user-first mindset. Currently designing at <span class="dark:text-indigo-400 text-indigo-600 font-semibold">Scipy Technologies</span>, Pattom.
+                    </p>
+
+                    <div class="hero-buttons flex flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start">
+                        <a href="#works" class="ripple-btn magnetic-btn inline-flex items-center gap-2 text-sm font-semibold dark:bg-white bg-neutral-900 dark:text-black text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full dark:hover:bg-neutral-200 hover:bg-neutral-700 transition-colors shadow-2xl">
+                            View Works
+                            <span class="iconify" data-icon="lucide:arrow-down-right" data-width="16"></span>
+                        </a>
+                        <a href="#contact" class="magnetic-btn inline-flex items-center gap-2 text-sm font-semibold dark:bg-white/5 bg-neutral-100 dark:text-white text-neutral-900 px-6 sm:px-7 py-3 sm:py-3.5 rounded-full border dark:border-white/10 border-neutral-300 dark:hover:bg-white/10 hover:bg-neutral-200 transition-colors">
+                            <span class="iconify" data-icon="lucide:download" data-width="15"></span>
+                            Download CV
+                        </a>
+                    </div>
+
+                    <div class="hero-stats flex flex-wrap gap-8 sm:gap-10 justify-center lg:justify-start mt-8 sm:mt-12 pt-6 sm:pt-8 border-t dark:border-white/5 border-neutral-200">
+                        <div>
+                            <div class="text-3xl sm:text-4xl font-black counter-value" data-target="1">0</div>
+                            <div class="text-[10px] sm:text-xs dark:text-neutral-500 text-neutral-500 mt-1 uppercase tracking-widest">Year Exp.</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl sm:text-4xl font-black counter-value" data-target="5">0</div>
+                            <div class="text-[10px] sm:text-xs dark:text-neutral-500 text-neutral-500 mt-1 uppercase tracking-widest">Projects</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl sm:text-4xl font-black counter-value" data-target="5">0</div>
+                            <div class="text-[10px] sm:text-xs dark:text-neutral-500 text-neutral-500 mt-1 uppercase tracking-widest">Happy Clients</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Hero Image -->
+                <div class="hero-image-wrapper flex justify-center lg:justify-end">
+                    <div class="hero-image-container">
+                        <!-- Morph blob — behind image -->
+                        <div class="absolute inset-[-10%] dark:bg-indigo-500/20 bg-indigo-400/10 morph-blob blur-sm"></div>
+
+                        <!-- Image -->
+                        <div class="relative w-full aspect-[3/4] sm:aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden border-2 dark:border-white/10 border-neutral-200 shadow-2xl dark:shadow-indigo-500/10" style="animation: floatSlow 6s ease-in-out infinite;">
+                            <img src="https://picsum.photos/seed/anoop-ms-designer/500/650.jpg" alt="Anoop Ms" class="w-full h-full object-cover" id="heroImg">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+
+                            <!-- Badge on image -->
+                            <div class="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6">
+                                <div class="flex items-center gap-3 dark:bg-black/40 bg-white/20 backdrop-blur-xl rounded-xl sm:rounded-2xl p-3 sm:p-4 border dark:border-white/10 border-white/20">
+                                    <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl dark:bg-indigo-500/30 bg-indigo-500/20 flex items-center justify-center shrink-0">
+                                        <span class="iconify dark:text-indigo-300 text-indigo-100" data-icon="lucide:figma" data-width="18"></span>
+                                    </div>
+                                    <div class="min-w-0">
+                                        <p class="text-white text-xs sm:text-sm font-semibold truncate">UI/UX Designer</p>
+                                        <p class="text-white/60 text-[10px] sm:text-xs truncate">Scipy Technologies, Pattom</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating decorative elements — desktop only -->
+                        <div class="hero-floating-el -top-3 -right-3 sm:-top-4 sm:-right-4 w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl dark:bg-neutral-800 bg-white border dark:border-white/10 border-neutral-200 flex items-center justify-center shadow-xl" style="animation: float 4s ease-in-out infinite;">
+                            <span class="iconify dark:text-indigo-400 text-indigo-600" data-icon="lucide:pen-tool" data-width="20"></span>
+                        </div>
+                        <div class="hero-floating-el -bottom-3 -left-3 sm:-bottom-4 sm:-left-4 w-11 h-11 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl dark:bg-neutral-800 bg-white border dark:border-white/10 border-neutral-200 flex items-center justify-center shadow-xl" style="animation: float 5s ease-in-out infinite 1s;">
+                            <span class="iconify dark:text-emerald-400 text-emerald-600" data-icon="lucide:layers" data-width="18"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+            <div class="w-5 h-8 rounded-full border-2 dark:border-white/20 border-neutral-300 flex items-start justify-center p-1.5">
+                <div class="w-1 h-1.5 bg-current dark:text-white/50 text-neutral-400 rounded-full" style="animation: scrollDot 1.5s ease-in-out infinite;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MARQUEE ==================== -->
+    <div class="py-6 sm:py-8 border-y dark:border-white/5 border-neutral-200 marquee-container">
+        <div class="marquee-track whitespace-nowrap">
+            <span class="inline-flex items-center gap-6 sm:gap-8 mx-3 sm:mx-4 text-xl sm:text-2xl md:text-4xl font-black dark:text-white/5 text-neutral-200 uppercase tracking-widest">
+                UI DESIGN <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                UX RESEARCH <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                PROTOTYPING <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                FIGMA <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                DESIGN SYSTEMS <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                WIREFRAMING <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+            </span>
+            <span class="inline-flex items-center gap-6 sm:gap-8 mx-3 sm:mx-4 text-xl sm:text-2xl md:text-4xl font-black dark:text-white/5 text-neutral-200 uppercase tracking-widest">
+                UI DESIGN <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                UX RESEARCH <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                PROTOTYPING <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                FIGMA <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                DESIGN SYSTEMS <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+                WIREFRAMING <span class="dark:text-indigo-500/30 text-indigo-300">✦</span>
+            </span>
+        </div>
+    </div>
+
+    <!-- ==================== WORKS ==================== -->
+    <section id="works" class="relative py-16 sm:py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="animate-on-scroll flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-16">
+                <div>
+                    <span class="text-xs font-semibold dark:text-indigo-400 text-indigo-600 uppercase tracking-[0.2em]">Selected Works</span>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tighter mt-3">Featured Projects</h2>
+                </div>
+                <a href="#" class="hidden sm:flex items-center gap-2 text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors group shrink-0">
+                    View All <span class="iconify transition-transform group-hover:translate-x-2" data-icon="lucide:arrow-right" data-width="16"></span>
+                </a>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-5 sm:gap-6">
+                <!-- Project 1 - Featured -->
+                <div class="animate-on-scroll stagger-1 project-card sm:col-span-2 rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 overflow-hidden cursor-pointer group">
+                    <div class="grid md:grid-cols-2">
+                        <div class="overflow-hidden aspect-[4/3] relative">
+                            <img src="https://picsum.photos/seed/bloomcare-app/800/600.jpg" alt="BloomCare" class="project-img w-full h-full object-cover">
+                            <div class="project-overlay absolute inset-0 bg-gradient-to-t from-indigo-600/30 to-transparent flex items-center justify-center">
+                                <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full dark:bg-white/20 bg-white/30 backdrop-blur-md flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500">
+                                    <span class="iconify text-white" data-icon="lucide:arrow-up-right" data-width="22"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-6 sm:p-8 md:p-10 flex flex-col justify-between">
+                            <div>
+                                <div class="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
+                                    <span class="text-xs font-semibold px-3 py-1 rounded-full dark:bg-indigo-500/10 bg-indigo-50 dark:text-indigo-400 text-indigo-600">Landing Page</span>
+                                    <span class="text-xs font-semibold px-3 py-1 rounded-full dark:bg-emerald-500/10 bg-emerald-50 dark:text-emerald-400 text-emerald-600">2024</span>
+                                </div>
+                                <h3 class="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight mb-2 sm:mb-3">BloomCare</h3>
+                                <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Mental Health App Landing Page — A calming, accessible experience for mental wellness journeys.</p>
+                            </div>
+                            <div class="flex items-center gap-2 mt-4 sm:mt-6 text-sm font-semibold dark:text-indigo-400 text-indigo-600 group-hover:gap-4 transition-all">
+                                View Case Study <span class="iconify project-arrow" data-icon="lucide:arrow-right" data-width="16"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="animate-on-scroll stagger-2 project-card rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 overflow-hidden cursor-pointer group relative">
+                    <div class="overflow-hidden aspect-[4/3] relative">
+                        <img src="https://picsum.photos/seed/fintrack-dash/600/450.jpg" alt="FinTrack" class="project-img w-full h-full object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-purple-600/30 to-transparent flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full dark:bg-white/20 bg-white/30 backdrop-blur-md flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500">
+                                <span class="iconify text-white" data-icon="lucide:arrow-up-right" data-width="22"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8">
+                        <span class="project-number text-4xl sm:text-5xl font-black dark:text-white/5 text-neutral-200 absolute top-3 right-4 sm:top-4 sm:right-6">02</span>
+                        <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full dark:bg-indigo-500/10 bg-indigo-50 dark:text-indigo-400 text-indigo-600">Dashboard</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold tracking-tight mb-1 sm:mb-2">FinTrack Pro</h3>
+                        <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Financial analytics dashboard with real-time insights.</p>
+                        <div class="flex items-center gap-2 mt-3 sm:mt-4 text-sm font-semibold dark:text-indigo-400 text-indigo-600 group-hover:gap-3 transition-all">
+                            View <span class="iconify project-arrow" data-icon="lucide:arrow-right" data-width="14"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="animate-on-scroll stagger-3 project-card rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 overflow-hidden cursor-pointer group relative">
+                    <div class="overflow-hidden aspect-[4/3] relative">
+                        <img src="https://picsum.photos/seed/shopease-mobile/600/450.jpg" alt="ShopEase" class="project-img w-full h-full object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-emerald-600/30 to-transparent flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full dark:bg-white/20 bg-white/30 backdrop-blur-md flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500">
+                                <span class="iconify text-white" data-icon="lucide:arrow-up-right" data-width="22"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8">
+                        <span class="project-number text-4xl sm:text-5xl font-black dark:text-white/5 text-neutral-200 absolute top-3 right-4 sm:top-4 sm:right-6">03</span>
+                        <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full dark:bg-emerald-500/10 bg-emerald-50 dark:text-emerald-400 text-emerald-600">Mobile App</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold tracking-tight mb-1 sm:mb-2">ShopEase</h3>
+                        <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">E-commerce app redesign for seamless checkout.</p>
+                        <div class="flex items-center gap-2 mt-3 sm:mt-4 text-sm font-semibold dark:text-indigo-400 text-indigo-600 group-hover:gap-3 transition-all">
+                            View <span class="iconify project-arrow" data-icon="lucide:arrow-right" data-width="14"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="animate-on-scroll stagger-4 project-card rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 overflow-hidden cursor-pointer group relative">
+                    <div class="overflow-hidden aspect-[4/3] relative">
+                        <img src="https://picsum.photos/seed/travel-wander/600/450.jpg" alt="Wanderlust" class="project-img w-full h-full object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-amber-600/30 to-transparent flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full dark:bg-white/20 bg-white/30 backdrop-blur-md flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500">
+                                <span class="iconify text-white" data-icon="lucide:arrow-up-right" data-width="22"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8">
+                        <span class="project-number text-4xl sm:text-5xl font-black dark:text-white/5 text-neutral-200 absolute top-3 right-4 sm:top-4 sm:right-6">04</span>
+                        <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full dark:bg-amber-500/10 bg-amber-50 dark:text-amber-400 text-amber-600">Web Platform</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold tracking-tight mb-1 sm:mb-2">Wanderlust</h3>
+                        <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Travel booking with immersive destination previews.</p>
+                        <div class="flex items-center gap-2 mt-3 sm:mt-4 text-sm font-semibold dark:text-indigo-400 text-indigo-600 group-hover:gap-3 transition-all">
+                            View <span class="iconify project-arrow" data-icon="lucide:arrow-right" data-width="14"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="animate-on-scroll stagger-5 project-card rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 overflow-hidden cursor-pointer group relative">
+                    <div class="overflow-hidden aspect-[4/3] relative">
+                        <img src="https://picsum.photos/seed/health-vitality/600/450.jpg" alt="Vitality" class="project-img w-full h-full object-cover">
+                        <div class="project-overlay absolute inset-0 bg-gradient-to-t from-rose-600/30 to-transparent flex items-center justify-center">
+                            <div class="w-12 h-12 rounded-full dark:bg-white/20 bg-white/30 backdrop-blur-md flex items-center justify-center scale-0 group-hover:scale-100 transition-transform duration-500">
+                                <span class="iconify text-white" data-icon="lucide:arrow-up-right" data-width="22"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-5 sm:p-6 md:p-8">
+                        <span class="project-number text-4xl sm:text-5xl font-black dark:text-white/5 text-neutral-200 absolute top-3 right-4 sm:top-4 sm:right-6">05</span>
+                        <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                            <span class="text-xs font-semibold px-3 py-1 rounded-full dark:bg-rose-500/10 bg-rose-50 dark:text-rose-400 text-rose-600">App Design</span>
+                        </div>
+                        <h3 class="text-lg sm:text-xl font-bold tracking-tight mb-1 sm:mb-2">Vitality</h3>
+                        <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Health & fitness app with gamified challenges.</p>
+                        <div class="flex items-center gap-2 mt-3 sm:mt-4 text-sm font-semibold dark:text-indigo-400 text-indigo-600 group-hover:gap-3 transition-all">
+                            View <span class="iconify project-arrow" data-icon="lucide:arrow-right" data-width="14"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICES ==================== -->
+    <section id="services" class="relative py-16 sm:py-24 md:py-32">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] sm:w-[600px] h-[300px] sm:h-[400px] dark:bg-indigo-500/8 bg-indigo-500/5 rounded-full blur-[120px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="animate-on-scroll text-center max-w-2xl mx-auto mb-10 sm:mb-16">
+                <span class="text-xs font-semibold dark:text-indigo-400 text-indigo-600 uppercase tracking-[0.2em]">What I Do</span>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tighter mt-3">Services I Offer</h2>
+                <p class="dark:text-neutral-400 text-neutral-600 mt-4 text-sm sm:text-base">Specialized in creating digital products that are both beautiful and functional.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+                <div class="animate-on-scroll stagger-1 service-card p-6 sm:p-8 rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 group">
+                    <div class="service-icon w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl dark:bg-indigo-500/10 bg-indigo-50 flex items-center justify-center mb-4 sm:mb-6">
+                        <span class="iconify dark:text-indigo-400 text-indigo-600" data-icon="lucide:pen-tool" data-width="24"></span>
+                    </div>
+                    <div class="service-line h-0.5 dark:bg-indigo-500 bg-indigo-600 rounded-full mb-3 sm:mb-4"></div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">UI/UX Design</h3>
+                    <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Crafting intuitive interfaces and delightful user experiences through research-driven design.</p>
+                    <div class="flex flex-wrap gap-2 mt-4 sm:mt-5">
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Wireframing</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Prototyping</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">User Testing</span>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll stagger-2 service-card p-6 sm:p-8 rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 group">
+                    <div class="service-icon w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl dark:bg-purple-500/10 bg-purple-50 flex items-center justify-center mb-4 sm:mb-6">
+                        <span class="iconify dark:text-purple-400 text-purple-600" data-icon="lucide:layout" data-width="24"></span>
+                    </div>
+                    <div class="service-line h-0.5 dark:bg-purple-500 bg-purple-600 rounded-full mb-3 sm:mb-4"></div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Web Design</h3>
+                    <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Responsive, modern websites that convert visitors into loyal customers.</p>
+                    <div class="flex flex-wrap gap-2 mt-4 sm:mt-5">
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Landing Pages</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">SaaS</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Responsive</span>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll stagger-3 service-card p-6 sm:p-8 rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 group">
+                    <div class="service-icon w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl dark:bg-emerald-500/10 bg-emerald-50 flex items-center justify-center mb-4 sm:mb-6">
+                        <span class="iconify dark:text-emerald-400 text-emerald-600" data-icon="lucide:smartphone" data-width="24"></span>
+                    </div>
+                    <div class="service-line h-0.5 dark:bg-emerald-500 bg-emerald-600 rounded-full mb-3 sm:mb-4"></div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Mobile App Design</h3>
+                    <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Seamless mobile experiences for iOS and Android with native feel.</p>
+                    <div class="flex flex-wrap gap-2 mt-4 sm:mt-5">
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">iOS</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Android</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Design System</span>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll stagger-4 service-card p-6 sm:p-8 rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 group">
+                    <div class="service-icon w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl dark:bg-amber-500/10 bg-amber-50 flex items-center justify-center mb-4 sm:mb-6">
+                        <span class="iconify dark:text-amber-400 text-amber-600" data-icon="lucide:palette" data-width="24"></span>
+                    </div>
+                    <div class="service-line h-0.5 dark:bg-amber-500 bg-amber-600 rounded-full mb-3 sm:mb-4"></div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Brand Identity</h3>
+                    <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Cohesive brand identities that resonate with target audiences.</p>
+                    <div class="flex flex-wrap gap-2 mt-4 sm:mt-5">
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Logo</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Guidelines</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Visual</span>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll stagger-5 service-card p-6 sm:p-8 rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 group">
+                    <div class="service-icon w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl dark:bg-rose-500/10 bg-rose-50 flex items-center justify-center mb-4 sm:mb-6">
+                        <span class="iconify dark:text-rose-400 text-rose-600" data-icon="lucide:component" data-width="24"></span>
+                    </div>
+                    <div class="service-line h-0.5 dark:bg-rose-500 bg-rose-600 rounded-full mb-3 sm:mb-4"></div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">Design System</h3>
+                    <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Scalable systems ensuring consistency across product teams.</p>
+                    <div class="flex flex-wrap gap-2 mt-4 sm:mt-5">
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Components</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Tokens</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Docs</span>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll stagger-6 service-card p-6 sm:p-8 rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 group">
+                    <div class="service-icon w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl dark:bg-cyan-500/10 bg-cyan-50 flex items-center justify-center mb-4 sm:mb-6">
+                        <span class="iconify dark:text-cyan-400 text-cyan-600" data-icon="lucide:search" data-width="24"></span>
+                    </div>
+                    <div class="service-line h-0.5 dark:bg-cyan-500 bg-cyan-600 rounded-full mb-3 sm:mb-4"></div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">UX Research</h3>
+                    <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Research uncovering insights for informed design decisions.</p>
+                    <div class="flex flex-wrap gap-2 mt-4 sm:mt-5">
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Interviews</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Usability</span>
+                        <span class="text-[10px] sm:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full dark:bg-white/5 bg-neutral-100 dark:text-neutral-400 text-neutral-600">Analytics</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== EXPERIENCE ==================== -->
+    <section id="experience" class="relative py-16 sm:py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+                <div class="animate-on-scroll from-left">
+                    <span class="text-xs font-semibold dark:text-indigo-400 text-indigo-600 uppercase tracking-[0.2em]">Career Path</span>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tighter mt-3">Work Experience</h2>
+                    <p class="dark:text-neutral-400 text-neutral-600 mt-4 leading-relaxed text-sm sm:text-base">My journey — from learning fundamentals to leading real-world projects at Scipy Technologies.</p>
+
+                    <div class="mt-8 sm:mt-10">
+                        <h4 class="text-xs sm:text-sm font-semibold dark:text-neutral-500 text-neutral-500 mb-3 sm:mb-4 uppercase tracking-widest">Tools I Use</h4>
+                        <div class="flex flex-wrap gap-2 sm:gap-3">
+                            <span class="text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 rounded-full dark:bg-neutral-900 bg-neutral-100 border dark:border-white/5 border-neutral-200 dark:text-neutral-300 text-neutral-700">Figma</span>
+                            <span class="text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 rounded-full dark:bg-neutral-900 bg-neutral-100 border dark:border-white/5 border-neutral-200 dark:text-neutral-300 text-neutral-700">Adobe XD</span>
+                            <span class="text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 rounded-full dark:bg-neutral-900 bg-neutral-100 border dark:border-white/5 border-neutral-200 dark:text-neutral-300 text-neutral-700">Framer</span>
+                            <span class="text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 rounded-full dark:bg-neutral-900 bg-neutral-100 border dark:border-white/5 border-neutral-200 dark:text-neutral-300 text-neutral-700">Webflow</span>
+                            <span class="text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 rounded-full dark:bg-neutral-900 bg-neutral-100 border dark:border-white/5 border-neutral-200 dark:text-neutral-300 text-neutral-700">Notion</span>
+                            <span class="text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 rounded-full dark:bg-neutral-900 bg-neutral-100 border dark:border-white/5 border-neutral-200 dark:text-neutral-300 text-neutral-700">Miro</span>
+                            <span class="text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 rounded-full dark:bg-neutral-900 bg-neutral-100 border dark:border-white/5 border-neutral-200 dark:text-neutral-300 text-neutral-700">Photoshop</span>
+                            <span class="text-[10px] sm:text-xs px-3 sm:px-4 py-1.5 sm:py-2 rounded-full dark:bg-neutral-900 bg-neutral-100 border dark:border-white/5 border-neutral-200 dark:text-neutral-300 text-neutral-700">Illustrator</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-0">
+                    <div class="animate-on-scroll from-right stagger-1 timeline-item pl-6 sm:pl-8 pb-8 sm:pb-12 border-l-2 dark:border-white/10 border-neutral-200 relative group hover:dark:border-indigo-500/50 hover:border-indigo-400 transition-colors">
+                        <div class="timeline-dot absolute left-[-6px] top-1 w-3 h-3 rounded-full dark:bg-indigo-400 bg-indigo-600 border-2 dark:border-[#050505] border-white"></div>
+                        <span class="text-xs font-bold dark:text-indigo-400 text-indigo-600">2023 — Present</span>
+                        <h3 class="text-lg sm:text-xl font-bold mt-2">UI/UX Designer</h3>
+                        <p class="dark:text-neutral-500 text-neutral-500 text-sm mt-1 mb-2 sm:mb-3 flex items-center gap-2">
+                            <span class="iconify shrink-0" data-icon="lucide:building-2" data-width="14"></span>
+                            Scipy Technologies, Pattom
+                        </p>
+                        <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Designing web and mobile interfaces for client projects across healthcare, fintech, and e-commerce. Building design systems from scratch.</p>
+                    </div>
+
+                    <div class="animate-on-scroll from-right stagger-2 timeline-item pl-6 sm:pl-8 pb-8 sm:pb-12 border-l-2 dark:border-white/10 border-neutral-200 relative group hover:dark:border-purple-500/50 hover:border-purple-400 transition-colors">
+                        <div class="timeline-dot absolute left-[-6px] top-1 w-3 h-3 rounded-full dark:bg-purple-400 bg-purple-600 border-2 dark:border-[#050505] border-white"></div>
+                        <span class="text-xs font-bold dark:text-purple-400 text-purple-600">2023</span>
+                        <h3 class="text-lg sm:text-xl font-bold mt-2">Design Intern</h3>
+                        <p class="dark:text-neutral-500 text-neutral-500 text-sm mt-1 mb-2 sm:mb-3 flex items-center gap-2">
+                            <span class="iconify shrink-0" data-icon="lucide:building-2" data-width="14"></span>
+                            Scipy Technologies, Pattom
+                        </p>
+                        <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Started my professional journey learning design workflows and contributing to live projects.</p>
+                    </div>
+
+                    <div class="animate-on-scroll from-right stagger-3 timeline-item pl-6 sm:pl-8 relative group hover:dark:border-emerald-500/50 hover:border-emerald-400 transition-colors">
+                        <div class="timeline-dot absolute left-[-6px] top-1 w-3 h-3 rounded-full dark:bg-emerald-400 bg-emerald-600 border-2 dark:border-[#050505] border-white"></div>
+                        <span class="text-xs font-bold dark:text-emerald-400 text-emerald-600">2022 — 2023</span>
+                        <h3 class="text-lg sm:text-xl font-bold mt-2">Freelance Designer</h3>
+                        <p class="dark:text-neutral-500 text-neutral-500 text-sm mt-1 mb-2 sm:mb-3 flex items-center gap-2">
+                            <span class="iconify shrink-0" data-icon="lucide:laptop" data-width="14"></span>
+                            Self-employed
+                        </p>
+                        <p class="dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">Worked with small businesses creating logos, landing pages, and social media assets.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section id="about" class="relative py-16 sm:py-24 md:py-32 overflow-hidden">
+        <div class="absolute inset-0 dark:bg-neutral-900/30 bg-neutral-50"></div>
+        <div class="absolute top-1/2 right-0 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] dark:bg-purple-500/5 bg-purple-500/5 rounded-full blur-[100px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+                <div class="animate-on-scroll from-left">
+                    <div class="relative rounded-2xl sm:rounded-3xl overflow-hidden aspect-[4/5] max-w-md mx-auto lg:max-w-none group">
+                        <img src="https://picsum.photos/seed/anoop-about-portrait/600/750.jpg" alt="Anoop Ms" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div class="absolute top-4 sm:top-6 right-4 sm:right-6 px-3 sm:px-4 py-2 sm:py-3 rounded-lg sm:rounded-xl dark:bg-black/40 bg-white/20 backdrop-blur-xl border dark:border-white/10 border-white/20" style="animation: float 5s ease-in-out infinite;">
+                            <p class="text-white text-xs font-semibold">🎨 Design Enthusiast</p>
+                        </div>
+                        <div class="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl dark:bg-indigo-500/30 bg-indigo-500/20 backdrop-blur-md flex items-center justify-center shrink-0">
+                                    <span class="iconify text-white" data-icon="lucide:map-pin" data-width="18"></span>
+                                </div>
+                                <div>
+                                    <p class="text-white text-sm font-semibold">Based in Pattom</p>
+                                    <p class="text-white/60 text-xs">Kerala, India</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll from-right">
+                    <span class="text-xs font-semibold dark:text-indigo-400 text-indigo-600 uppercase tracking-[0.2em]">About Me</span>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter mt-3 mb-4 sm:mb-6">Passionate about meaningful design</h2>
+                    <div class="space-y-3 sm:space-y-4 dark:text-neutral-400 text-neutral-600 text-sm leading-relaxed">
+                        <p>Hey! I'm <span class="dark:text-white text-neutral-900 font-semibold">Anoop Ms</span>, a UI/UX designer with 1 year of professional experience at Scipy Technologies, Pattom.</p>
+                        <p>My approach combines strategic thinking with aesthetic sensibility — great design isn't just about looks, it's about solving real problems.</p>
+                        <p>When I'm not designing, you'll find me exploring trends, contributing to the community, or sketching ideas over chai ☕</p>
+                    </div>
+
+                    <div class="mt-6 sm:mt-8 space-y-4 sm:space-y-5">
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span class="font-medium">UI Design</span><span class="dark:text-indigo-400 text-indigo-600 font-bold">92%</span></div>
+                            <div class="h-2 rounded-full dark:bg-white/5 bg-neutral-200 overflow-hidden"><div class="skill-bar-fill h-full rounded-full dark:bg-gradient-to-r dark:from-indigo-600 dark:to-indigo-400 bg-gradient-to-r from-indigo-600 to-indigo-400" style="width:0%;" data-width="92%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span class="font-medium">UX Research</span><span class="dark:text-purple-400 text-purple-600 font-bold">85%</span></div>
+                            <div class="h-2 rounded-full dark:bg-white/5 bg-neutral-200 overflow-hidden"><div class="skill-bar-fill h-full rounded-full dark:bg-gradient-to-r dark:from-purple-600 dark:to-purple-400 bg-gradient-to-r from-purple-600 to-purple-400" style="width:0%;" data-width="85%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span class="font-medium">Prototyping</span><span class="dark:text-emerald-400 text-emerald-600 font-bold">88%</span></div>
+                            <div class="h-2 rounded-full dark:bg-white/5 bg-neutral-200 overflow-hidden"><div class="skill-bar-fill h-full rounded-full dark:bg-gradient-to-r dark:from-emerald-600 dark:to-emerald-400 bg-gradient-to-r from-emerald-600 to-emerald-400" style="width:0%;" data-width="88%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-2"><span class="font-medium">Design Systems</span><span class="dark:text-amber-400 text-amber-600 font-bold">80%</span></div>
+                            <div class="h-2 rounded-full dark:bg-white/5 bg-neutral-200 overflow-hidden"><div class="skill-bar-fill h-full rounded-full dark:bg-gradient-to-r dark:from-amber-600 dark:to-amber-400 bg-gradient-to-r from-amber-600 to-amber-400" style="width:0%;" data-width="80%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="relative py-16 sm:py-24 md:py-32">
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] sm:w-[600px] h-[300px] sm:h-[400px] dark:bg-indigo-500/10 bg-indigo-500/5 rounded-full blur-[120px]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+                <div class="animate-on-scroll from-left">
+                    <span class="text-xs font-semibold dark:text-indigo-400 text-indigo-600 uppercase tracking-[0.2em]">Get In Touch</span>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tighter mt-3">Let's work together</h2>
+                    <p class="dark:text-neutral-400 text-neutral-600 mt-4 leading-relaxed max-w-md text-sm sm:text-base">Have a project in mind? I'd love to hear about it. Let's create something amazing.</p>
+
+                    <div class="mt-8 sm:mt-10 space-y-5 sm:space-y-6">
+                        <a href="mailto:anoopms@email.com" class="contact-link flex items-center gap-3 sm:gap-4 group">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center group-hover:dark:bg-indigo-500/20 group-hover:bg-indigo-50 transition-colors shrink-0">
+                                <span class="iconify dark:text-neutral-400 text-neutral-600 group-hover:dark:text-indigo-400 group-hover:text-indigo-600 transition-colors" data-icon="lucide:mail" data-width="18"></span>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-xs dark:text-neutral-500 text-neutral-500">Email</p>
+                                <p class="text-sm font-semibold truncate">anoopms@email.com</p>
+                            </div>
+                        </a>
+                        <a href="#" class="contact-link flex items-center gap-3 sm:gap-4 group">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center group-hover:dark:bg-indigo-500/20 group-hover:bg-indigo-50 transition-colors shrink-0">
+                                <span class="iconify dark:text-neutral-400 text-neutral-600 group-hover:dark:text-indigo-400 group-hover:text-indigo-600 transition-colors" data-icon="lucide:phone" data-width="18"></span>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-xs dark:text-neutral-500 text-neutral-500">Phone</p>
+                                <p class="text-sm font-semibold">+91 XXX XXX XXXX</p>
+                            </div>
+                        </a>
+                        <a href="#" class="contact-link flex items-center gap-3 sm:gap-4 group">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center group-hover:dark:bg-indigo-500/20 group-hover:bg-indigo-50 transition-colors shrink-0">
+                                <span class="iconify dark:text-neutral-400 text-neutral-600 group-hover:dark:text-indigo-400 group-hover:text-indigo-600 transition-colors" data-icon="lucide:map-pin" data-width="18"></span>
+                            </div>
+                            <div class="min-w-0">
+                                <p class="text-xs dark:text-neutral-500 text-neutral-500">Location</p>
+                                <p class="text-sm font-semibold">Pattom, Kerala, India</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="mt-8 sm:mt-10 flex gap-2 sm:gap-3">
+                        <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
+                            <span class="iconify dark:text-neutral-400 text-neutral-600" data-icon="lucide:dribbble" data-width="16"></span>
+                        </a>
+                        <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
+                            <span class="iconify dark:text-neutral-400 text-neutral-600" data-icon="lucide:linkedin" data-width="16"></span>
+                        </a>
+                        <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
+                            <span class="iconify dark:text-neutral-400 text-neutral-600" data-icon="lucide:instagram" data-width="16"></span>
+                        </a>
+                        <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
+                            <span class="iconify dark:text-neutral-400 text-neutral-600" data-icon="lucide:twitter" data-width="16"></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll from-right">
+                    <form id="contactForm" class="p-6 sm:p-8 rounded-2xl dark:bg-neutral-900/50 bg-neutral-50 border dark:border-white/5 border-neutral-200 space-y-5 sm:space-y-6">
+                        <div class="grid sm:grid-cols-2 gap-4 sm:gap-6">
+                            <div>
+                                <label class="text-[10px] sm:text-xs font-semibold dark:text-neutral-400 text-neutral-600 mb-1.5 sm:mb-2 block uppercase tracking-wider">Name</label>
+                                <input type="text" placeholder="Your name" required class="w-full px-3 sm:px-4 py-3 sm:py-3.5 rounded-lg sm:rounded-xl dark:bg-white/5 bg-white border dark:border-white/10 border-neutral-200 text-sm dark:text-white text-neutral-900 placeholder:dark:text-neutral-600 placeholder:text-neutral-400 focus:outline-none focus:dark:border-indigo-500/50 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all">
+                            </div>
+                            <div>
+                                <label class="text-[10px] sm:text-xs font-semibold dark:text-neutral-400 text-neutral-600 mb-1.5 sm:mb-2 block uppercase tracking-wider">Email</label>
+                                <input type="email" placeholder="you@email.com" required class="w-full px-3 sm:px-4 py-3 sm:py-3.5 rounded-lg sm:rounded-xl dark:bg-white/5 bg-white border dark:border-white/10 border-neutral-200 text-sm dark:text-white text-neutral-900 placeholder:dark:text-neutral-600 placeholder:text-neutral-400 focus:outline-none focus:dark:border-indigo-500/50 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-[10px] sm:text-xs font-semibold dark:text-neutral-400 text-neutral-600 mb-1.5 sm:mb-2 block uppercase tracking-wider">Subject</label>
+                            <input type="text" placeholder="Project inquiry" class="w-full px-3 sm:px-4 py-3 sm:py-3.5 rounded-lg sm:rounded-xl dark:bg-white/5 bg-white border dark:border-white/10 border-neutral-200 text-sm dark:text-white text-neutral-900 placeholder:dark:text-neutral-600 placeholder:text-neutral-400 focus:outline-none focus:dark:border-indigo-500/50 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all">
+                        </div>
+                        <div>
+                            <label class="text-[10px] sm:text-xs font-semibold dark:text-neutral-400 text-neutral-600 mb-1.5 sm:mb-2 block uppercase tracking-wider">Message</label>
+                            <textarea rows="4" placeholder="Tell me about your project..." required class="w-full px-3 sm:px-4 py-3 sm:py-3.5 rounded-lg sm:rounded-xl dark:bg-white/5 bg-white border dark:border-white/10 border-neutral-200 text-sm dark:text-white text-neutral-900 placeholder:dark:text-neutral-600 placeholder:text-neutral-400 focus:outline-none focus:dark:border-indigo-500/50 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="ripple-btn w-full magnetic-btn text-sm font-bold dark:bg-white bg-neutral-900 dark:text-black text-white px-6 sm:px-7 py-3.5 sm:py-4 rounded-full dark:hover:bg-neutral-200 hover:bg-neutral-700 transition-all flex items-center justify-center gap-2 shadow-xl">
+                            Send Message <span class="iconify" data-icon="lucide:send" data-width="16"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="border-t dark:border-white/5 border-neutral-200 py-8 sm:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6">
+                <a href="#" class="text-lg font-bold tracking-tighter shrink-0">ANOOP<span class="dark:text-indigo-400 text-indigo-600">.</span></a>
+                <p class="text-xs sm:text-sm dark:text-neutral-500 text-neutral-500 text-center">© 2024 Anoop Ms. Crafted with ❤️ in Kerala</p>
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <a href="#" class="text-xs sm:text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">Dribbble</a>
+                    <a href="#" class="text-xs sm:text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">LinkedIn</a>
+                    <a href="#" class="text-xs sm:text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-[100] space-y-3 max-w-[calc(100vw-2rem)]"></div>
+
+    <!-- ==================== SCRIPTS ==================== -->
+    <script>
+        // ===== THEME =====
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        html.classList.toggle('dark', savedTheme === 'dark');
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = html.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // ===== MOBILE MENU =====
+        const mobileMenu = document.getElementById('mobileMenu');
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+        function closeMenu() {
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        document.getElementById('mobileMenuClose').addEventListener('click', closeMenu);
+        document.querySelectorAll('.mobile-nav-link').forEach(l => l.addEventListener('click', closeMenu));
+
+        // ===== SCROLL ANIMATIONS =====
+        const scrollObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    entry.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+                        const w = bar.getAttribute('data-width');
+                        if (w) setTimeout(() => {
+                            bar.style.transition = 'width 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                            bar.style.width = w;
+                        }, 400);
+                    });
+                }
+            });
+        }, { rootMargin: '0px 0px -60px 0px', threshold: 0.1 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => scrollObserver.observe(el));
+
+        // ===== COUNTER ANIMATION =====
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.getAttribute('data-target'));
+                    if (isNaN(target)) return;
+                    let current = 0;
+                    const increment = Math.max(target / 30, 0.5);
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) { current = target; clearInterval(timer); }
+                        el.textContent = Math.floor(current) + '+';
+                    }, 60);
+                    counterObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter-value').forEach(el => counterObserver.observe(el));
+
+        // ===== CURSOR GLOW — desktop only =====
+        const glow = document.getElementById('cursorGlow');
+        if (glow && window.innerWidth > 768) {
+            let mx = 0, my = 0, gx = 0, gy = 0;
+            document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+            function animGlow() {
+                gx += (mx - gx) * 0.08;
+                gy += (my - gy) * 0.08;
+                glow.style.transform = `translate(${gx - 175}px, ${gy - 175}px)`;
+                requestAnimationFrame(animGlow);
+            }
+            animGlow();
+        }
+
+        // ===== PARTICLES — desktop only =====
+        const particleContainer = document.getElementById('particles');
+        if (particleContainer && window.innerWidth > 768) {
+            function createParticle() {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const x = Math.random() * window.innerWidth;
+                const duration = 8 + Math.random() * 12;
+                const size = 2 + Math.random() * 3;
+                const colors = ['rgba(99,102,241,0.3)', 'rgba(168,85,247,0.2)', 'rgba(16,185,129,0.2)'];
+                p.style.cssText = `left:${x}px;bottom:-10px;width:${size}px;height:${size}px;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${duration}s;animation-delay:${Math.random()*3}s;`;
+                particleContainer.appendChild(p);
+                setTimeout(() => { if (p.parentNode) p.remove(); }, (duration + 5) * 1000);
+            }
+            for (let i = 0; i < 10; i++) setTimeout(() => createParticle(), i * 500);
+            setInterval(createParticle, 3000);
+        }
+
+        // ===== NAVBAR — only auto-hide on desktop =====
+        const navbar = document.getElementById('navbar');
+        let lastScrollY = 0;
+        let ticking = false;
+
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    if (window.innerWidth > 768) {
+                        const currentY = window.pageYOffset;
+                        if (currentY > lastScrollY && currentY > 100) {
+                            navbar.style.transform = 'translateY(-100%)';
+                        } else {
+                            navbar.style.transform = 'translateY(0)';
+                        }
+                        navbar.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+                        lastScrollY = currentY;
+                    } else {
+                        navbar.style.transform = 'translateY(0)';
+                    }
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        // ===== ACTIVE NAV LINK =====
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => { if (window.pageYOffset >= s.offsetTop - 150) current = s.id; });
+            navLinks.forEach(l => {
+                l.classList.remove('active', 'dark:text-white', 'text-neutral-900');
+                if (l.getAttribute('href') === `#${current}`) l.classList.add('active', 'dark:text-white', 'text-neutral-900');
+            });
+        });
+
+        // ===== SMOOTH SCROLL =====
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // ===== RIPPLE BUTTON =====
+        document.querySelectorAll('.ripple-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple-effect';
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+                ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+                this.appendChild(ripple);
+                setTimeout(() => { if (ripple.parentNode) ripple.remove(); }, 600);
+            });
+        });
+
+        // ===== CONTACT FORM =====
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const orig = btn.innerHTML;
+            btn.innerHTML = '<span class="iconify animate-spin" data-icon="lucide:loader-2" data-width="16"></span> Sending...';
+            btn.disabled = true;
+            setTimeout(() => {
+                btn.innerHTML = orig;
+                btn.disabled = false;
+                this.reset();
+                showToast('Message sent! I\'ll get back to you soon ✨');
+            }, 1800);
+        });
+
+        function showToast(msg) {
+            const container = document.getElementById('toastContainer');
+            const t = document.createElement('div');
+            t.className = 'toast flex items-center gap-3 px-4 sm:px-5 py-3 sm:py-4 rounded-xl sm:rounded-2xl shadow-2xl text-xs sm:text-sm font-semibold backdrop-blur-xl dark:bg-emerald-500/20 bg-emerald-50 dark:text-emerald-300 text-emerald-700 border dark:border-emerald-500/20 border-emerald-200';
+            t.innerHTML = '<span class="iconify shrink-0" data-icon="lucide:check-circle" data-width="16"></span><span>' + msg + '</span>';
+            container.appendChild(t);
+            setTimeout(() => { t.classList.add('hide'); setTimeout(() => { if (t.parentNode) t.remove(); }, 400); }, 4000);
+        }
+
+        // ===== HERO PARALLAX — desktop only, clamped =====
+        const heroImg = document.getElementById('heroImg');
+        if (heroImg && window.innerWidth > 768) {
+            document.addEventListener('mousemove', e => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 8;
+                const y = (e.clientY / window.innerHeight - 0.5) * 8;
+                heroImg.style.transform = 'translate(' + x + 'px, ' + y + 'px) scale(1.02)';
+            });
+        }
+
+        // ===== PAGE LOAD =====
+        document.body.style.opacity = '0';
+        window.addEventListener('load', () => {
+            document.body.style.transition = 'opacity 0.6s ease';
+            requestAnimationFrame(() => { document.body.style.opacity = '1'; });
+        });
+
+        // ===== RESIZE HANDLER — reset nav on resize =====
+        window.addEventListener('resize', () => {
+            if (window.innerWidth <= 768) {
+                navbar.style.transform = 'translateY(0)';
+            }
+        });
+    </script>
+</body>
+</html>
