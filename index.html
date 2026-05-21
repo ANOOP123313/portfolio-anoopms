@@ -100,6 +100,10 @@
             0%, 100% { box-shadow: 0 0 0 3px rgba(139,92,246,0.22), 0 0 10px rgba(139,92,246,0.5); }
             50% { box-shadow: 0 0 0 5px rgba(139,92,246,0.1), 0 0 22px rgba(139,92,246,0.75); }
         }
+        @keyframes scrollTopPulse {
+            0%, 100% { box-shadow: 0 8px 25px rgba(139,92,246,0.38); }
+            50% { box-shadow: 0 8px 35px rgba(139,92,246,0.58); }
+        }
 
         .animate-on-scroll {
             opacity: 0; transform: translateY(50px);
@@ -374,25 +378,41 @@
 
         /* ═══ SCROLL TO TOP ═══ */
         .scroll-top-wrap {
-            width: 100%; display: flex; justify-content: flex-end;
-            padding: 48px 48px 0; max-width: 1280px; margin: 0 auto;
-            opacity: 0; transform: translateY(16px);
-            transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1), transform 0.4s cubic-bezier(0.16,1,0.3,1);
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 5000;
+            opacity: 0;
+            transform: translateY(20px) scale(0.85);
+            transition: opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1);
+            pointer-events: none;
         }
-        .scroll-top-wrap.vis { opacity: 1; transform: translateY(0); }
+        .scroll-top-wrap.vis {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: all;
+        }
         .scroll-top {
             width: 52px; height: 52px;
             background: linear-gradient(135deg, #8b5cf6, #7c3aed);
             border: none; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; box-shadow: 0 8px 25px rgba(139,92,246,0.38);
-            transition: all 0.35s cubic-bezier(0.16,1,0.3,1); flex-shrink: 0;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(139,92,246,0.38);
+            transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+            flex-shrink: 0;
+            animation: scrollTopPulse 3s ease-in-out infinite;
         }
         .scroll-top:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 14px 35px rgba(139,92,246,0.55);
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 14px 40px rgba(139,92,246,0.6);
+            animation: none;
         }
-        .scroll-top svg { width: 22px; height: 22px; stroke: #fff; fill: none; display: block; }
+        .scroll-top:active {
+            transform: translateY(-2px) scale(0.97);
+        }
+        .scroll-top svg { width: 22px; height: 22px; stroke: #fff; fill: none; display: block; transition: transform 0.3s ease; }
+        .scroll-top:hover svg { transform: translateY(-2px); }
 
         /* ═══ MOBILE DROPDOWN NAV ═══ */
         .mob-dropdown {
@@ -447,33 +467,19 @@
             .hbg-pill { display: flex; }
             .mob-utils { display: flex; }
             .sticky-inner { padding: 12px 14px 0; max-width: 100%; }
-            .scroll-top-wrap { padding: 32px 16px 0; justify-content: center; }
+            .scroll-top-wrap { bottom: 20px; right: 16px; }
             .scroll-top { width: 46px; height: 46px; }
             .scroll-top svg { width: 20px; height: 20px; }
-            .nav-badge {
-                /* top: 22px; */
-                font-size: 13px;
-            }
-            .badge-av {
-                width: 36px;
-                height: 36px;
-            }
-            .badge-av-fill {
-                font-size: 12px;
-            }
-            .badge-label {
-                font-size: 12px;
-                padding: 0 8px 0 8px;
-            }
-            .badge-dot {
-                width: 12px;
-                height: 12px;
-            }
+            .nav-badge { font-size: 13px; }
+            .badge-av { width: 36px; height: 36px; }
+            .badge-av-fill { font-size: 12px; }
+            .badge-label { font-size: 12px; padding: 0 8px 0 8px; }
+            .badge-dot { width: 12px; height: 12px; }
         }
         @media (max-width: 480px) {
             .hero-image-container { max-width: 280px; }
             .nav-brand { font-size: 13px; }
-            .scroll-top-wrap { padding: 28px 16px 0; }
+            .scroll-top-wrap { bottom: 16px; right: 12px; }
             .scroll-top { width: 42px; height: 42px; }
             .scroll-top svg { width: 18px; height: 18px; }
         }
@@ -535,7 +541,7 @@
         <div class="sticky-inner" id="stickyInner">
             <nav class="nav-pill" id="navPill">
                 <div class="nav-pill-l">
-                    <div class="nav-brand">ANOOP<span>MS</span></div>
+                    <div class="nav-brand">ANOOP<span></span></div>
                     <ul class="nav-links-desk hidden md:flex">
                         <li><a href="#works">Works</a></li>
                         <li><a href="#services">Services</a></li>
@@ -608,7 +614,7 @@
                     </div>
 
                     <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] font-black tracking-tighter leading-[0.95] mb-4 sm:mb-6">
-                        <div class="hero-title-line"><span>ANOOP <span class="shimmer-text">M S</span></span></div>
+                        <div class="hero-title-line"><span>ANOOP M S<span class="shimmer-text"></span></span></div>
                         <div class="hero-title-line"><span class="dark:text-neutral-600 text-neutral-400 text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-semibold tracking-tight">UI/UX DESIGNER</span></div>
                     </h1>
                 </div>
@@ -644,7 +650,7 @@
                 <!-- Description + Buttons + Stats -->
                 <div class="text-center lg:text-left">
                     <p class="hero-desc text-sm sm:text-base md:text-lg dark:text-neutral-400 text-neutral-600 max-w-lg mx-auto lg:mx-0 mb-6 sm:mb-8 leading-relaxed">
-                        UI/UX Designer with 1 year of hands-on experience designing user-friendly web and mobile interfaces. Proficient in <span class="dark:text-purple-400 text-purple-600 font-semibold">Figma</span>, <span class="dark:text-purple-400 text-purple-600 font-semibold">Penpot</span>, and <span class="dark:text-emerald-400 text-emerald-600 font-semibold">Framer</span>. Currently at <span class="dark:text-purple-400 text-purple-600 font-semibold">Scipy Technologies</span>, Trivandrum.
+                        UI/UX Designer with 1 year of hands-on experience designing user-friendly web and mobile interfaces. Proficient in <span class="dark:text-purple-400 text-purple-600 font-semibold">Figma,Adobe XD,Photoshop,Penpot</span> and <span class="dark:text-purple-400 text-purple-600 font-semibold">Framer</span>. Currently at <span class="dark:text-purple-400 text-purple-600 font-semibold">Scipy Technologies</span>, Trivandrum.
                     </p>
 
                     <div class="hero-buttons flex flex-wrap gap-3 sm:gap-4 justify-center lg:justify-start">
@@ -1092,10 +1098,10 @@
                         <a href="https://github.com/anoopanu2004" target="_blank" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
                             <span class="iconify dark:text-neutral-400 text-neutral-600" data-icon="lucide:github" data-width="16"></span>
                         </a>
-                        <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
-                            <span class="iconify dark:text-neutral-400 text-neutral-600" data-icon="lucide:dribbble" data-width="16"></span>
+                        <a href="https://www.behance.net/anoopuxui" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
+                            <span class="iconify dark:text-neutral-400 text-neutral-600" data-icon="mdi:behance" data-width="16"></span>
                         </a>
-                        <a href="#" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
+                        <a href="https://www.linkedin.com/in/anoop-uiux" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
                             <span class="iconify dark:text-neutral-400 text-neutral-600" data-icon="lucide:linkedin" data-width="16"></span>
                         </a>
                         <a href="mailto:anoopuxui@gmail.com" class="w-10 h-10 sm:w-11 sm:h-11 rounded-lg sm:rounded-xl dark:bg-white/5 bg-neutral-100 flex items-center justify-center dark:hover:bg-white/10 hover:bg-neutral-200 transition-all duration-300 hover:scale-110 shrink-0">
@@ -1133,7 +1139,7 @@
         </div>
     </section>
 
-    <!-- ═══ SCROLL TO TOP ═══ -->
+    <!-- ═══ SCROLL TO TOP (fixed, appears with badge) ═══ -->
     <div class="scroll-top-wrap" id="scrollTopWrap">
         <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
             <svg viewBox="0 0 24 24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1150,7 +1156,7 @@
                 <p class="text-xs sm:text-sm dark:text-neutral-500 text-neutral-500 text-center">© 2025 Anoop M S. Crafted with ❤️ in Trivandrum</p>
                 <div class="flex items-center gap-4 sm:gap-6">
                     <a href="https://github.com/anoopanu2004" target="_blank" class="text-xs sm:text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">GitHub</a>
-                    <a href="#" class="text-xs sm:text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">Dribbble</a>
+                    <a href="https://www.behance.net/anoopuxui" class="text-xs sm:text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">Behance</a>
                     <a href="mailto:anoopuxui@gmail.com" class="text-xs sm:text-sm dark:text-neutral-400 text-neutral-600 dark:hover:text-white hover:text-neutral-900 transition-colors">Email</a>
                 </div>
             </div>
@@ -1201,13 +1207,13 @@
             const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
             scrollBar.style.width = pct + '%';
 
-            // Scroll to top visibility
-            scrollTopWrap.classList.toggle('vis', window.scrollY > 400);
-
             // Nav swap: hide navbar when past hero, show badge
             const pastHero = heroEnd.getBoundingClientRect().top < 0;
             navPill.classList.toggle('hide', pastHero);
             navBadge.classList.toggle('on', pastHero);
+
+            // Scroll-to-top: show alongside the badge (same condition)
+            scrollTopWrap.classList.toggle('vis', pastHero);
 
             // Navbar scrolled state
             if (!pastHero) {
